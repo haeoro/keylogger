@@ -1,26 +1,21 @@
-// Keylogger built in C++
-
 #include <iostream>
 #include <windows.h>
- 
+
 int main() 
 {
 	while (1) 
 	{
 		Sleep(1);
 		int vkeys[] = { 0x41, 0x42, 0x43 };
-		int count = 0;
 		for (int key : vkeys) 
 		{
-			if (key == 0x41) 
+			if (GetAsyncKeyState(key) != 0) 
 			{
-				count += 1;
-				if (GetAsyncKeyState(key) != 0) 
-				{
-					std::cout << "a";
-					std::cout << count << std::endl;
-				}
+				std::cout << "true";
+				return 0;
 			}
 		}
 	}
 }
+
+// find a way to wait until it's done and write it to console. 
