@@ -1,3 +1,5 @@
+// ``~ forward declaration file for mappings.cpp used within the keylogger program (Written by haeoro) ~``
+
 #pragma once
 
 #include <map>
