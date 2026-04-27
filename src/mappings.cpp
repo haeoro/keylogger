@@ -15,7 +15,6 @@ void Maps::writeKeyString(std::string key)
 
 void Maps::initializeMaps() 
 {
-    // extended ascii mappings here. 
     asciiMaps = 
     {
         {COMMA, 44}, {EQUAL, 61}, 
@@ -25,8 +24,6 @@ void Maps::initializeMaps()
         {BACKSLASH, 92}, {HYPHEN, 45}, 
         {ACUTE, 96}, 
     };
-
-    // do shift+specialkey maps here. 
 
     shiftMaps = 
     {
@@ -51,6 +48,14 @@ void Maps::initializeMaps()
         {118, F7}, {119, F8}, 
         {120, F9}, {121, F10}, 
         {122, F11}, {123, F12},
+
+        {9, TAB}, {162, CTRL_L}, 
+        {163, CTRL_R}, {164, ALT_L}, 
+        {165, ALT_R}, {91, WINKEY}, 
+        {33, PGUP}, {34, PGDOWN}, 
+        {36, HOME}, {35, END}, 
+        {45, INSERT}, {46, DEL}, 
+        {8, BACKSPACE}, 
     };
 
 

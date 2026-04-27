@@ -18,8 +18,21 @@ const int ACUTE = 192;
 // miscellaneous group of consts
 const int KEY_IS_PRESSED = -32767;
 const int KEY_IS_PRESSED2 = -32768;
-const int BACKSPACE = 8;
 const int ENTER = 13;
+
+const std::string BACKSPACE = "{kp='BACKSPACE'}";
+const std::string TAB = "{kp='TAB'}";
+const std::string CTRL_L = "{kp='Left Ctrl'}";
+const std::string CTRL_R = "{kp='Right Ctrl'}";
+const std::string ALT_L = "{kp='Left ALT'}";
+const std::string ALT_R = "{kp='Right ALT'}";
+const std::string WINKEY = "{kp='WINKEY'}";
+const std::string PGUP = "{kp='PGUP'}";
+const std::string INSERT = "{kp='INSERT'}";
+const std::string DEL = "{kp='DEL'}";
+const std::string HOME = "{kp='HOME'}";
+const std::string END = "{kp='END'}";
+const std::string PGDOWN = "{kp='PGDOWN'}";
 
 const std::string F1 = "{kp='F1'}";
 const std::string F2 = "{kp='F2'}";
