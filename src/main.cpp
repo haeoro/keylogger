@@ -1,12 +1,12 @@
 /*
     ``~ Main file for the keylogger program (Written by haeoro) ~``
 
-            WinMain() initializes all mappings, checks if any key on the keyboard is being pressed.
-            once a key's value has been found and written to a file, key = 0 tells the program that the key has been found
-            and logged, and that it should continue checking other keys to see if they're being pressed. 
+         WinMain() initializes all mappings, checks if any key on the keyboard is being pressed.
+         once a key's value has been found and written to a file, key = 0 tells the program that the key has been found
+         and logged, and that it should continue checking other keys to see if they're being pressed. 
 
-            writeKeyStroke() takes an int key argument, then converts that integer to it's corresponding ascii value using 
-            static_cast conversion method, then closes the file.
+         writeKeyStroke() takes an int key argument, then converts that integer to it's corresponding ascii value using 
+         static_cast conversion method, then closes the file.
 */
 
 #include "mappings.h"
