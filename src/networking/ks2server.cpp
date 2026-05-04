@@ -3,52 +3,44 @@
 #include <iostream>
 #include <windows.h>
 
-#pragma comment(lib, "Ws2_32.lib")
-#define DEFAULT_PORT "21722"
+#define PORT 4444
+#define HOST "192.168.1.100"
 
 int client() 
 {
     
     WSADATA wsaData;
-    int iResult = WSAStartup(MAKEWORD(2, 2), &wsaData);
-    if (iResult != 0) 
+    struct sockaddr_in serverInfo;
+    serverInfo.sin_family = AF_INET;
+    serverInfo.sin_addr.s_addr = inet_addr(HOST);
+    serverInfo.sin_port = htons(PORT);
+
+    int wsaStartRetCode = WSAStartup(MAKEWORD(2, 2), &wsaData);
+    if (wsaStartRetCode != 0) 
     {
-        std::cout << "WSAStartup failed. " << iResult;
+        std::cout << "WSAStartup failed. " << wsaStartRetCode;
+        WSACleanup();
         return 1; 
     }
+
+    SOCKET socketInfo = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     
-    if (iResult != 0) 
-    {
-        WSACleanup();
-        return 1;
-    }
-    SOCKET ConnectSocket = INVALID_SOCKET;
-    ConnectSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-    if (ConnectSocket == INVALID_SOCKET) 
+    if (socketInfo == INVALID_SOCKET) 
     {
         WSACleanup();
         return 1;
     }
 
-
-    iResult = connect(ConnectSocket, &server, 18);
+    connect(socketInfo, (SOCKADDR*)&serverInfo, 18);
     
-    
-    if (iResult = SOCKET_ERROR) 
+    if (WSAGetLastError() == 0) 
     {
-        closesocket(ConnectSocket);
-        ConnectSocket = INVALID_SOCKET;
+        std::cout << "Connection made to server!";
     }
-    else if (iResult == 0) 
+    else if (WSAGetLastError() == 10061) 
     {
-        "connection successful.";
+        std::cout << "Connection refused.";
     }
-
-    if (ConnectSocket == INVALID_SOCKET) 
-    {
-        printf("Unable to connect to server!\n");
-        WSACleanup();
-        return 1;
-    }
+    WSACleanup();
 }
 
