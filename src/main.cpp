@@ -41,6 +41,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
     // testing client networking function.
     client();
     return 1;
+    // end testing.
     Maps vkMaps;
     vkMaps.initializeMaps();
     while (1)
@@ -87,5 +88,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
     ~ check and see if client() is able to connect to an ngrok server and port.
     ~ provide clear explanations to user for any if statements checking for any WSA errors.
     ~ check documentation for ALL code files to ensure everything is written clearly, and concisely. 
+    ~ figure out why getaddrinfo() is not working in ks2server.cpp 
 
 */

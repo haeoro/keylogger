@@ -1,14 +1,14 @@
 #include <winsock2.h>
-#include <Ws2tcpip.h>
+#include <ws2tcpip.h>
 #include <iostream>
-#include <windows.h>
 
-#define PORT 4444
-#define HOST "192.168.1.100"
+#define HOST "0.tcp.au.ngrok.io"
 
 int client() 
 {
-    
+    u_short PORT = 26869;
+    getaddrinfo();
+
     WSADATA wsaData;
     struct sockaddr_in serverInfo;
     serverInfo.sin_family = AF_INET;
@@ -27,6 +27,7 @@ int client()
     
     if (socketInfo == INVALID_SOCKET) 
     {
+        closesocket(socketInfo);
         WSACleanup();
         return 1;
     }
@@ -44,3 +45,4 @@ int client()
     WSACleanup();
 }
 
+// write code to resolve domain to IP address.
