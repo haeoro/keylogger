@@ -33,6 +33,7 @@ int findShiftPlusKey()
             return 1;
         }
     }
+    return 1;
 }
 
 int isShiftPressed() 

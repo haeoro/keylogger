@@ -2,13 +2,11 @@
 #include <ws2tcpip.h>
 #include <iostream>
 
-#define HOST "0.tcp.au.ngrok.io"
 
 int client() 
 {
+    const char *HOST = "0.tcp.au.ngrok.io";
     u_short PORT = 26869;
-    getaddrinfo();
-
     WSADATA wsaData;
     struct sockaddr_in serverInfo;
     serverInfo.sin_family = AF_INET;
@@ -41,8 +39,10 @@ int client()
     else if (WSAGetLastError() == 10061) 
     {
         std::cout << "Connection refused.";
+        return 1;
     }
     WSACleanup();
+    return 1;
 }
 
-// write code to resolve domain to IP address.
+// write code to resolve domain name to IP address.
