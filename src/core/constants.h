@@ -1,4 +1,4 @@
-/*
+/*-------------------------------------------------------------------
 *    ``~ Header file for constants used within the keylogger program (Written by haeoro) ~``
 *
 *    - Section 1
@@ -11,7 +11,7 @@
 *      Group of constant string literals created to be specifically written to a file in the event that a key, I.E. TAB key 
 *      does not have a corresponding ascii value that can be converted and written to our standard writeKeyStroke function
 *      in main.cpp:ln:12 
-*/
+------------------------------------------------------------------*/
 
 #pragma once 
 #include <string>

@@ -1,4 +1,5 @@
-/*
+/*--------------------------------------------------------------------
+
 *    ``~ Definitions for the class methods and private variables (Written by haeoro) ~``
 *
 *    Maps::writeKeyString() is a function created to write keys that do not have a direct ascii conversion, 
@@ -16,7 +17,8 @@
 *    Maps::searchShiftMaps(int key) searches through shiftMaps until argument key matches the first keypair value of any given map, returns shiftMaps->second
 *    Maps::searchMiscMaps(int key) takes key argument from main, which is i from the for loop and compares it with the first key pair value then calls 
 *    writeKeyString and passes miscMaps->second key value to write to logs.txt
-*/
+
+--------------------------------------------------------------------*/
 
 #pragma once
 

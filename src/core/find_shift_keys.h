@@ -1,4 +1,5 @@
-/*
+/*-------------------------------------------------------------------
+
 *    ``~ Definition file for find_shift_keys.h used within the keylogger program (Written by haeoro) ~``
 *
 *    findShiftPlusKey() is a function that is called when the shift key is pressed, this functions main purpose 
@@ -9,7 +10,8 @@
 *        
 *    isShiftPressed() Checks if shift has been pressed. 
 *    isCapslockOn() Checks if Capslock has been enabled.
-*/
+
+-------------------------------------------------------------------*/
 
 #pragma once
 
