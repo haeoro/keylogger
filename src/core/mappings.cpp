@@ -65,6 +65,7 @@ int Maps::searchAsciiMaps(int key)
 { 
     auto asciiBeg = asciiMaps.begin();
     auto asciiEnd = asciiMaps.end();
+    
     while (asciiBeg != asciiEnd) 
     {
         if (asciiBeg->first == key) 
@@ -80,6 +81,7 @@ int Maps::searchShiftMaps(int key)
 {
     auto shiftBeg = shiftMaps.begin();
     auto shiftEnd = shiftMaps.end();
+
     while (shiftBeg != shiftEnd) 
     {
         if (shiftBeg->first == key) 
@@ -95,6 +97,7 @@ int Maps::searchMiscMaps(int key)
 {
     auto miscBeg = miscMaps.begin();
     auto miscEnd = miscMaps.end();
+
     while (miscBeg != miscEnd) 
     {
         if (miscBeg->first == key) 

