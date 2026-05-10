@@ -2,6 +2,22 @@
 #include <ws2tcpip.h>
 #include <iostream>
 
+const char *HOST = "0.tcp.au.ngrok.io";
+u_short PORT = 27189;
+
+int isHostInDotForm(const char *test) 
+{
+    while (*test != '\0') 
+    {
+        if (*test >= 65 && *test <= 90 
+        || *test >= 97 && *test <= 122) 
+        {
+            return 1;
+        }
+        test++;
+    }
+    return 0;
+}
 
 int client() 
 {
@@ -9,10 +25,6 @@ int client()
     struct sockaddr_in saServer;
     hostent *host;
     const char *ip;
-    
-    // host and port info here.
-    const char *HOST = "0.tcp.au.ngrok.io";
-    u_short PORT = 17711;
 
     int wsaStartRetCode = WSAStartup(MAKEWORD(2, 2), &wsaData);
     
@@ -23,11 +35,18 @@ int client()
         return 1; 
     }
 
-    host = gethostbyname(HOST);
-    ip = inet_ntoa (*(struct in_addr *)*host->h_addr_list);
+    if (isHostInDotForm(HOST) == 1) 
+    {
+        host = gethostbyname(HOST);
+        ip = inet_ntoa (*(struct in_addr *)*host->h_addr_list);
+        saServer.sin_addr.s_addr = inet_addr(ip);
+    }
+    else 
+    {
+        saServer.sin_addr.s_addr = inet_addr(HOST);
+    }
 
     saServer.sin_family = AF_INET;
-    saServer.sin_addr.s_addr = inet_addr(ip);
     saServer.sin_port = htons(PORT);
 
     SOCKET socketInfo = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);

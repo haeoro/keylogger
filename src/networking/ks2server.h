@@ -9,4 +9,5 @@
 
 #pragma once
 
+int isHostInDotForm();
 int client();
