@@ -3,23 +3,23 @@
 #include <iostream>
 
 const char *HOST = "0.tcp.au.ngrok.io";
-u_short PORT = 27189;
+u_short PORT = 13411;
 
-int isHostInDotForm(const char *test) 
+int isHostInDotForm(const char *hostPtr) 
 {
-    while (*test != '\0') 
+    while (*hostPtr != '\0') 
     {
-        if (*test >= 65 && *test <= 90 
-        || *test >= 97 && *test <= 122) 
+        if (*hostPtr >= 65 && *hostPtr <= 90 
+        || *hostPtr >= 97 && *hostPtr <= 122) 
         {
             return 1;
         }
-        test++;
+        hostPtr++;
     }
     return 0;
 }
 
-int client() 
+int client(const char *buf) 
 {
     WSADATA wsaData;
     struct sockaddr_in saServer;
@@ -63,6 +63,7 @@ int client()
     if (WSAGetLastError() == 0) 
     {
         std::cout << "Connection made to server!";
+        send(socketInfo, buf, ((strlen(buf))+1), MSG_OOB);
         return 0;
     }
     else 

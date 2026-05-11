@@ -10,4 +10,4 @@
 #pragma once
 
 int isHostInDotForm();
-int client();
+int client(const char *buf);

