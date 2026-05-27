@@ -2,8 +2,8 @@
 #include <ws2tcpip.h>
 #include <iostream>
 
-const char *HOST = "0.tcp.au.ngrok.io";
-u_short PORT = 13411;
+const char *HOST = "192.168.1.104";
+u_short PORT = 4444;
 
 int isHostInDotForm(const char *hostPtr) 
 {
@@ -19,10 +19,10 @@ int isHostInDotForm(const char *hostPtr)
     return 0;
 }
 
-int client(const char *buf) 
+SOCKET initClient() 
 {
     WSADATA wsaData;
-    struct sockaddr_in saServer;
+    static struct sockaddr_in saServer;
     hostent *host;
     const char *ip;
 
@@ -59,17 +59,19 @@ int client(const char *buf)
     }
 
     connect(socketInfo, (SOCKADDR*)&saServer, 18);
-    
+
     if (WSAGetLastError() == 0) 
     {
         std::cout << "Connection made to server!";
-        send(socketInfo, buf, ((strlen(buf))+1), MSG_OOB);
-        return 0;
+        
+        //send(socketInfo, buf, ((strlen(buf))+1), MSG_OOB);
+        return socketInfo;
     }
     else 
     {
         std::cout << "Connection refused.";
+        closesocket(socketInfo);
+        WSACleanup();
         return 1;
     }
-    WSACleanup();
 }

