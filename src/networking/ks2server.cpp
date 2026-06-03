@@ -2,7 +2,7 @@
 #include <ws2tcpip.h>
 #include <iostream>
 
-const char *HOST = "192.168.1.104";
+const char *HOST = "192.168.1.101";
 u_short PORT = 4444;
 
 int isHostInDotForm(const char *hostPtr) 
@@ -58,13 +58,11 @@ SOCKET initClient()
         return 1;
     }
 
-    connect(socketInfo, (SOCKADDR*)&saServer, 18);
+    connect(socketInfo, (SOCKADDR*)&saServer, sizeof(saServer));
 
     if (WSAGetLastError() == 0) 
     {
         std::cout << "Connection made to server!";
-        
-        //send(socketInfo, buf, ((strlen(buf))+1), MSG_OOB);
         return socketInfo;
     }
     else 
