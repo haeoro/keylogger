@@ -56,7 +56,7 @@ void Maps::initializeMaps()
 void Maps::writeKeyString(std::string key) 
 {
     std::ofstream file;
-    file.open("logs.txt", std::ios::app);
+    file.open("output.txt", std::ios::app);
     file << key;
     file.close();
 }

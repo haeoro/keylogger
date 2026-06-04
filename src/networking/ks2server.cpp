@@ -2,8 +2,8 @@
 #include <ws2tcpip.h>
 #include <iostream>
 
-const char *HOST = "192.168.1.101";
-u_short PORT = 4444;
+const char *HOST = nullptr;
+u_short PORT = 0;
 
 int isHostInDotForm(const char *hostPtr) 
 {
@@ -25,6 +25,11 @@ SOCKET initClient()
     static struct sockaddr_in saServer;
     hostent *host;
     const char *ip;
+    
+    if (HOST == nullptr || PORT == 0) 
+    {
+        return 1;
+    }
 
     int wsaStartRetCode = WSAStartup(MAKEWORD(2, 2), &wsaData);
     

@@ -88,5 +88,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
     ~ check documentation for ALL code files to ensure everything is written clearly, and concisely. 
     ~ write code to schedule this program to be run on startup.
+    ~ write code to make sure special keys are getting logged. 
 
 */
