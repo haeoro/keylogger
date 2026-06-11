@@ -1,7 +1,9 @@
 /*--------------------------------------------------------------------
 
 *    ``~ Definitions for the class methods and private variables (Written by haeoro) ~``
-*
+*   
+*    This is a custom code page, it maps ascii values to characters.
+* 
 *    Maps::writeKeyString() is a function created to write keys that do not have a direct ascii conversion, 
 *    see constants.h:ln:12 for more info.
 *

