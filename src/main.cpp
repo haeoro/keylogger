@@ -21,17 +21,17 @@
 #include <winsock2.h>
 #include <psapi.h>
 
-int retrieveProcessName(DWORD procID) 
+int retrieveProcessName(DWORD procID, char mainProcName[]) 
 {
-    char procName[1024];
+    char procName[MAX_PATH];
     HMODULE hMod;
+
     HANDLE procHandle = OpenProcess(PROCESS_ALL_ACCESS, FALSE, procID);
     if (procHandle) 
     {
         GetModuleBaseNameA(procHandle, hMod, procName, sizeof(procName)/sizeof(char));
-        //std::cout << GetLastError() << '\n';
     }
-    std::cout << procName << '\n';
+    std::cout << procName;
     CloseHandle(procHandle);
     return 1;
 }
@@ -39,11 +39,20 @@ int retrieveProcessName(DWORD procID)
 int isProcRunning() 
 {
     DWORD procIDs[1024];
+    char mainProcName[MAX_PATH];
+    HMODULE hmModule;
     DWORD cbNeeded;
+    DWORD mainProcID = GetCurrentProcessId();
+    HANDLE mainProcHandle = OpenProcess(PROCESS_ALL_ACCESS, FALSE, mainProcID);
+    if (mainProcHandle) 
+    {
+        GetModuleBaseNameA(mainProcHandle, hmModule, mainProcName, sizeof(mainProcName)/sizeof(char));
+    }
+    CloseHandle(mainProcHandle);
     EnumProcesses(procIDs, sizeof(procIDs), &cbNeeded);
     for (int i = 1; procIDs[i] != 0; i++) 
     {
-        retrieveProcessName(procIDs[i]);
+        retrieveProcessName(procIDs[i], mainProcName);
     }
     return 0;
 }
@@ -122,7 +131,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
         To-Do list
     ~ create a function to check if the code program is already running. 
-        plan: create a local counter variable, IF counter is >= 2 then the program must exit as that means there is more than one instance of it. 
+        todo: fix code in isProcRunning so that mainProcName is getting data assigned by GetModuleBaseNameA()
 
     ~ check documentation for ALL code files to ensure everything is written clearly, and concisely. 
     ~ write code to schedule this program to be run on startup.
