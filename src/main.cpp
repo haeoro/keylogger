@@ -25,13 +25,13 @@ int retrieveProcessName(DWORD procID, char mainProcName[])
 {
     char procName[MAX_PATH];
     HMODULE hMod;
-
     HANDLE procHandle = OpenProcess(PROCESS_ALL_ACCESS, FALSE, procID);
     if (procHandle) 
     {
         GetModuleBaseNameA(procHandle, hMod, procName, sizeof(procName)/sizeof(char));
     }
-    std::cout << procName;
+
+    std::cout << procName << " " << mainProcName << '\n';
     CloseHandle(procHandle);
     return 1;
 }
@@ -40,16 +40,18 @@ int isProcRunning()
 {
     DWORD procIDs[1024];
     char mainProcName[MAX_PATH];
+    char test[MAX_PATH] = "hello"; 
     HMODULE hmModule;
     DWORD cbNeeded;
-    DWORD mainProcID = GetCurrentProcessId();
-    HANDLE mainProcHandle = OpenProcess(PROCESS_ALL_ACCESS, FALSE, mainProcID);
+    HANDLE mainProcHandle = GetCurrentProcess();
     if (mainProcHandle) 
     {
         GetModuleBaseNameA(mainProcHandle, hmModule, mainProcName, sizeof(mainProcName)/sizeof(char));
     }
     CloseHandle(mainProcHandle);
     EnumProcesses(procIDs, sizeof(procIDs), &cbNeeded);
+    //std::cout << mainProcName;
+    //return 1;
     for (int i = 1; procIDs[i] != 0; i++) 
     {
         retrieveProcessName(procIDs[i], mainProcName);
@@ -131,7 +133,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
         To-Do list
     ~ create a function to check if the code program is already running. 
-        todo: fix code in isProcRunning so that mainProcName is getting data assigned by GetModuleBaseNameA()
+        todo: fix code in isProcRunning so that mainProcName is getting data assigned by GetModuleBaseNameA(). 
 
     ~ check documentation for ALL code files to ensure everything is written clearly, and concisely. 
     ~ write code to schedule this program to be run on startup.
