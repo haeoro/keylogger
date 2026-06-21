@@ -23,8 +23,8 @@ SOCKET initClient()
 {
     WSADATA wsaData;
     static struct sockaddr_in saServer;
-    hostent *host;
-    const char *ip;
+    hostent *host = nullptr;
+    const char *ip = nullptr;
     
     if (HOST == nullptr || PORT == 0) 
     {
@@ -35,12 +35,11 @@ SOCKET initClient()
     
     if (wsaStartRetCode != 0) 
     {
-        std::cout << "WSAStartup failed. " << wsaStartRetCode;
         WSACleanup();
         return 1; 
     }
 
-    if (isHostInDotForm(HOST) == 1) 
+    if (isHostInDotForm(HOST)) 
     {
         host = gethostbyname(HOST);
         ip = inet_ntoa (*(struct in_addr *)*host->h_addr_list);
@@ -67,12 +66,10 @@ SOCKET initClient()
 
     if (WSAGetLastError() == 0) 
     {
-        std::cout << "Connection made to server!";
         return socketInfo;
     }
     else 
     {
-        std::cout << "Connection refused.";
         closesocket(socketInfo);
         WSACleanup();
         return 1;
