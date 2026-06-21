@@ -1,4 +1,4 @@
-/*
+/*--------------------------------------------------------------------
 *    ``~ Main file for the keylogger program (Written by haeoro) ~``
 *
 *    isProcRunning() Retrieves all of the active PIDs running on the system, then passes it to retrieveProcessName() to
@@ -11,7 +11,7 @@
 *    main() Calls isProcessRunning() to see if the program is running, initializes all mappings, and checks if any key on 
 *    the keyboard is being pressed. once a key's value has been found and written to a file, key = 0 tells the program that the key has been found
 *    and logged, and that it should continue checking other keys to see if they're being pressed.     
-*/
+*--------------------------------------------------------------------*/
 
 #include "core/mappings.h"
 #include "core/constants.h"
