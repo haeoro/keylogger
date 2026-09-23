@@ -1,6 +1,6 @@
 /*--------------------------------------------------------------------
 
-*    ``~ Main file for the keylogger program (Written by haeoro) ~``
+*    ``~ Main file for the keylogger rogram (Written by haeoro) ~``
 *
 *    isProcRunning() Retrieves all of the active PIDs running on the system, then passes it to retrieveProcessName() to
 *    ensure the keylogger program is not running already. The reasoning for this is to prevent multiple instances of 
