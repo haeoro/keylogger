@@ -5,12 +5,12 @@
 const char *HOST = nullptr;
 u_short PORT = 0;
 
-int isHostInDotForm(const char *hostPtr) 
+int isHostInDotForm(const char *hostPtr)
 {
-    while (*hostPtr != '\0') 
+    while (*hostPtr != '\0')
     {
-        if (*hostPtr >= 65 && *hostPtr <= 90 
-        || *hostPtr >= 97 && *hostPtr <= 122) 
+        if (*hostPtr >= 65 && *hostPtr <= 90
+        || *hostPtr >= 97 && *hostPtr <= 122)
         {
             return 1;
         }
@@ -19,33 +19,33 @@ int isHostInDotForm(const char *hostPtr)
     return 0;
 }
 
-SOCKET initClient() 
+SOCKET initClient()
 {
     WSADATA wsaData;
     static struct sockaddr_in saServer;
     hostent *host = nullptr;
     const char *ip = nullptr;
-    
-    if (HOST == nullptr || PORT == 0) 
+
+    if (HOST == nullptr || PORT == 0)
     {
         return 1;
     }
 
     int wsaStartRetCode = WSAStartup(MAKEWORD(2, 2), &wsaData);
-    
-    if (wsaStartRetCode != 0) 
+
+    if (wsaStartRetCode != 0)
     {
         WSACleanup();
-        return 1; 
+        return 1;
     }
 
-    if (isHostInDotForm(HOST)) 
+    if (isHostInDotForm(HOST))
     {
         host = gethostbyname(HOST);
         ip = inet_ntoa (*(struct in_addr *)*host->h_addr_list);
         saServer.sin_addr.s_addr = inet_addr(ip);
     }
-    else 
+    else
     {
         saServer.sin_addr.s_addr = inet_addr(HOST);
     }
@@ -54,8 +54,8 @@ SOCKET initClient()
     saServer.sin_port = htons(PORT);
 
     SOCKET socketInfo = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-    
-    if (socketInfo == INVALID_SOCKET) 
+
+    if (socketInfo == INVALID_SOCKET)
     {
         closesocket(socketInfo);
         WSACleanup();
@@ -64,11 +64,11 @@ SOCKET initClient()
 
     connect(socketInfo, (SOCKADDR*)&saServer, sizeof(saServer));
 
-    if (WSAGetLastError() == 0) 
+    if (WSAGetLastError() == 0)
     {
         return socketInfo;
     }
-    else 
+    else
     {
         closesocket(socketInfo);
         WSACleanup();
