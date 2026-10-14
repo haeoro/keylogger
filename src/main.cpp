@@ -138,7 +138,6 @@ int main()
     independently.
 
         To-Do list
-    ~ fix bug where special keys aren't being sent over the socket.
     ~ check documentation for ALL code files to ensure everything is written clearly, and concisely.
     ~ write code to schedule this program to be run on startup.
     ~ implement code algorithm to check if user is idle, if so then exit the loop and wait til mouse moves.
