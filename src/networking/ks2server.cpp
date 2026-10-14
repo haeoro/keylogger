@@ -3,7 +3,7 @@
 #include <iostream>
 
 const char *HOST = nullptr;
-u_short PORT = 0;
+u_short PORT = NULL;
 
 int isHostInDotForm(const char *hostPtr)
 {

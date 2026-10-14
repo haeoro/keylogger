@@ -35,6 +35,7 @@ void Maps::initializeMaps()
 
     miscMaps =
     {
+        // include mappings for up, down, left, right arrow keys.
         {112, F1}, {113, F2},
         {114, F3}, {115, F4},
         {116, F5}, {117, F6},
@@ -48,7 +49,9 @@ void Maps::initializeMaps()
         {33, PGUP}, {34, PGDOWN},
         {36, HOME}, {35, END},
         {45, INSERT}, {46, DEL},
-        {8, BACKSPACE},
+        {8, BACKSPACE}, {37, LEFT},
+        {38, UP}, {39, RIGHT},
+        {40, DOWN}
     };
 
 

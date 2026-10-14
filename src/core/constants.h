@@ -5,25 +5,25 @@
 *      Group of constants created to map a characters extended ascii value to it's true ascii value for conversion.
 *      (see mappings.cpp:ln:26)
 *    - Section 2
-*      Group of constants created to represent a key value returned by GetKeyState() if a key is being pressed. 
-*      ENTER's ascii value is 13. 
+*      Group of constants created to represent a key value returned by GetKeyState() if a key is being pressed.
+*      ENTER's ascii value is 13.
 *    - Section 3
-*      Group of constant string literals created to be specifically written to a file in the event that a key, I.E. TAB key 
+*      Group of constant string literals created to be specifically written to a file in the event that a key, I.E. TAB key
 *      does not have a corresponding ascii value that can be converted and written to our standard writeKeyStroke function
-*      in main.cpp:ln:12 
+*      in main.cpp:ln:12
 ------------------------------------------------------------------*/
 
-#pragma once 
+#pragma once
 #include <string>
 
-// Section 1. 
+// Section 1.
 const int COMMA = 188;
 const int EQUAL = 187;
 const int PERIOD = 190;
 const int SEMICOLON = 186;
 const int OBRACKETL = 219;
 const int OBRACKETR = 221;
-const int APOSTROPHE = 222; 
+const int APOSTROPHE = 222;
 const int VERGULE = 191;
 const int BACKSLASH = 220;
 const int HYPHEN = 189;
@@ -48,6 +48,10 @@ const std::string DEL = "{kp='DEL'}";
 const std::string HOME = "{kp='HOME'}";
 const std::string END = "{kp='END'}";
 const std::string PGDOWN = "{kp='PGDOWN'}";
+const std::string LEFT = "{kp='LEFTARROW'}";
+const std::string UP = "{kp='UPARROW'}";
+const std::string RIGHT = "{kp='RIGHTARROW'}";
+const std::string DOWN = "{kp='DOWNARROW'}";
 
 const std::string F1 = "{kp='F1'}";
 const std::string F2 = "{kp='F2'}";
